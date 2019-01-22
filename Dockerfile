@@ -1,9 +1,9 @@
 FROM golang
-RUN mkdir /app 
-ADD . /app/
-WORKDIR /app
-RUN go get ./...
-RUN go build -o helm2bundle .
-RUN adduser -S -D -H -h /app appuser
-USER appuser
-CMD ["./helm2bundle"]
+
+WORKDIR /go/src/app
+COPY . .
+
+RUN go get -d -v ./...
+RUN go install -v ./...
+
+CMD ["app"]
